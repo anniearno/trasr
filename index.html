@@ -14,7 +14,7 @@
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
-      background: #000; /* fallback if video doesn't load */
+      background: #000; /* fallback while video loads */
       color: #111;
     }
 
@@ -26,10 +26,10 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1; /* behind content */
+      z-index: -1;
     }
 
-    /* Centered container for text card */
+    /* Centered card container */
     .overlay-card-container {
       position: relative;
       display: flex;
@@ -39,20 +39,20 @@
       padding: 20px;
     }
 
-    /* Semi-transparent card with rounded corners */
+    /* Glass card style */
     .overlay-card {
-      background: rgba(255, 255, 255, 0.7); /* light white with transparency */
-      border-radius: 16px;
-      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.75); /* slightly lighter for better contrast */
+      border-radius: 20px;
+      padding: 50px 40px;
       max-width: 500px;
       text-align: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      backdrop-filter: blur(6px); /* optional: adds frosted glass effect */
+      box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px); /* frosted glass effect */
       animation: fadeIn 2s ease-in-out;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 1rem;
       color: #111;
     }
@@ -83,6 +83,7 @@
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
     }
 
+    /* Fade-in animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -98,7 +99,7 @@
     Your browser does not support the video tag.
   </video>
 
-  <!-- Overlay card container -->
+  <!-- Overlay card -->
   <div class="overlay-card-container">
     <div class="overlay-card">
       <h1>TraSR</h1>

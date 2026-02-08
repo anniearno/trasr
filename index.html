@@ -12,14 +12,15 @@
       box-sizing: border-box;
     }
 
-    /* Full-screen video background */
     body, html {
       height: 100%;
       font-family: 'Helvetica', 'Arial', sans-serif;
       color: #0b1d4a; /* Dark navy blue */
       overflow: hidden;
+      background: #000; /* fallback in case video fails */
     }
 
+    /* Full-screen video background */
     .video-background {
       position: fixed;
       top: 0;
@@ -27,10 +28,28 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1; /* Send behind text */
+      z-index: -2; /* Behind overlay and dim */
     }
 
-    /* Overlay container */
+    /* Subtle dimming overlay on video */
+    .video-dim {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.25); /* initial dim */
+      z-index: -1;
+      animation: dimPulse 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes dimPulse {
+      0% { background: rgba(0,0,0,0.2); }
+      50% { background: rgba(0,0,0,0.35); }
+      100% { background: rgba(0,0,0,0.25); }
+    }
+
+    /* Overlay container for text */
     .overlay {
       position: relative;
       width: 100%;
@@ -41,7 +60,25 @@
       align-items: center;
       text-align: center;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.05); /* subtle overlay to improve contrast */
+    }
+
+    /* Fade-in animations for text */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .fade-in.delay-1 { animation-delay: 0.5s; }
+    .fade-in.delay-2 { animation-delay: 1.2s; }
+    .fade-in.delay-3 { animation-delay: 1.9s; }
+    .fade-in.delay-4 { animation-delay: 2.6s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
@@ -52,11 +89,21 @@
     p {
       font-size: 1.25em;
       margin-bottom: 1em;
+      line-height: 1.4;
     }
 
     .contact {
-      margin-top: 1em;
       font-size: 1em;
+      margin-top: 1em;
+    }
+
+    .contact a {
+      color: #0b1d4a;
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
     }
 
     .copyright {
@@ -83,12 +130,15 @@
     Your browser does not support the video tag.
   </video>
 
+  <!-- Subtle dimming overlay -->
+  <div class="video-dim"></div>
+
   <!-- Overlay content -->
   <div class="overlay">
-    <h1>TraSR</h1>
-    <p>Transparent, rigorous living evidence workflows – made easy.<br>Coming soon.</p>
-    <div class="contact">Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></div>
-    <div class="copyright">© 2026 TraSR</div>
+    <h1 class="fade-in delay-1">TraSR</h1>
+    <p class="fade-in delay-2">Transparent, rigorous living evidence workflows – made easy.<br>Coming soon.</p>
+    <div class="contact fade-in delay-3">Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></div>
+    <div class="copyright fade-in delay-4">© 2026 TraSR</div>
   </div>
 
 </body>

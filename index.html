@@ -59,4 +59,31 @@
   </div>
 
 </body>
+  <video autoplay muted loop playsinline class="background-video">
+  <source src="water-loop.mp4" type="video/mp4">
+</video>
+<div class="overlay-text">
+  <h1>TraSR</h1>
+  <p>Transparent, rigorous systematic review tools — coming soon.</p>
+</div>
+
+<style>
+  .background-video {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .overlay-text {
+    position: relative;
+    text-align: center;
+    color: white;
+    top: 40%;
+    transform: translateY(-40%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+</style>
+
 </html>

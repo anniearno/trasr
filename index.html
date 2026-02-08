@@ -1,48 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <body>
+  <title>TraSR</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    /* Reset body styles for full-screen video */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      background: #000; /* fallback while video loads */
+      color: white;
+    }
 
-  <h1>TraSR</h1>
-  <p>Transparent, rigorous living evidence made easy.</p>
-  <p>Coming soon.</p>
-  <p>Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></p>
+    /* Fullscreen background video */
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
 
+    /* Overlay text container */
+    .overlay-text {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+      max-width: 500px;
+      margin: 0.5rem 0;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="background-video">
+    <source src="trasrbackground.mp4" type="video/mp4">
+  </video>
+
+  <!-- Overlay text -->
+  <div class="overlay-text">
+    <h1>TraSR</h1>
+    <p>Transparent, rigorous living evidence made easy.</p>
+    <p>Coming soon.</p>
+    <p>Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></p>
+  </div>
+
+  <!-- Footer -->
   <div class="footer">
     &copy; 2025 TraSR
   </div>
 
 </body>
-  <video autoplay muted loop playsinline class="background-video">
-  <source src="trasrbackground.mp4" type="video/mp4">
-</video>
-<div class="overlay-text">
-  <h1>TraSR</h1>
-  <p>Transparent, rigorous systematic review tools — coming soon.</p>
-</div>
-
-<style>
-  .background-video {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-  }
-  .overlay-text {
-    position: relative;
-    text-align: center;
-    color: white;
-    top: 40%;
-    transform: translateY(-40%);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-</style>
-</head>
-
-
 </html>

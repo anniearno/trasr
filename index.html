@@ -6,19 +6,19 @@
   <title>TraSR</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
-    /* Reset body styles for full-screen video */
-    body, html {
+    /* Reset */
+    html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
-      background: #000; /* fallback while video loads */
+      background: #000; /* fallback */
       color: white;
     }
 
-    /* Fullscreen background video */
+    /* Background video */
     .background-video {
       position: fixed;
       top: 0;
@@ -26,10 +26,20 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      z-index: -2; /* behind overlay and tint */
+    }
+
+    /* Dark overlay tint */
+    .video-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.35); /* semi-transparent black tint */
       z-index: -1;
     }
 
-    /* Overlay text container */
+    /* Overlay text */
     .overlay-text {
       position: relative;
       display: flex;
@@ -39,17 +49,20 @@
       height: 100%;
       text-align: center;
       padding: 0 20px;
+      animation: fadeIn 2s ease-in-out;
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
     }
 
     p {
       font-size: 1.25rem;
       max-width: 500px;
       margin: 0.5rem 0;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     }
 
     a {
@@ -66,6 +79,13 @@
       bottom: 20px;
       font-size: 0.9rem;
       color: rgba(255,255,255,0.7);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -76,11 +96,13 @@
     <source src="trasrbackground.mp4" type="video/mp4">
   </video>
 
+  <!-- Overlay tint -->
+  <div class="video-overlay"></div>
+
   <!-- Overlay text -->
   <div class="overlay-text">
     <h1>TraSR</h1>
-    <p>Transparent, rigorous living evidence made easy.</p>
-    <p>Coming soon.</p>
+    <p>Transparent, rigorous systematic review tools — coming soon.</p>
     <p>Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></p>
   </div>
 

@@ -6,18 +6,19 @@
   <title>TraSR</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
-    html, body {
+    /* Reset body styles for full-screen video */
+    body, html {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
-      background: #000; /* fallback if video doesn't load */
-      color: #001f4d; /* dark navy blue */
+      background: #000; /* fallback while video loads */
+      color: white;
     }
 
-    /* Background video */
+    /* Fullscreen background video */
     .background-video {
       position: fixed;
       top: 0;
@@ -28,41 +29,43 @@
       z-index: -1;
     }
 
-    /* Center text */
+    /* Overlay text container */
     .overlay-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
       text-align: center;
       padding: 0 20px;
     }
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 1rem;
-      color: #001f4d;
+      margin-bottom: 0.5rem;
     }
 
     p {
       font-size: 1.25rem;
+      max-width: 500px;
       margin: 0.5rem 0;
-      color: #001f4d;
     }
 
     a {
-      color: #001f4d;
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
       text-decoration: underline;
-      font-weight: 500;
     }
 
     .footer {
       position: absolute;
       bottom: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #001f4d;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
     }
   </style>
 </head>
@@ -71,13 +74,13 @@
   <!-- Background video -->
   <video autoplay muted loop playsinline class="background-video">
     <source src="trasrbackground.mp4" type="video/mp4">
-    Your browser does not support the video tag.
   </video>
 
-  <!-- Text directly on top -->
+  <!-- Overlay text -->
   <div class="overlay-text">
     <h1>TraSR</h1>
-    <p>Transparent, rigorous systematic review tools — coming soon.</p>
+    <p>Transparent, rigorous living evidence made easy.</p>
+    <p>Coming soon.</p>
     <p>Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></p>
   </div>
 

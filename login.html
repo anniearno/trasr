@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - TraSR</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ocean-themed background */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(to bottom, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Login container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--navy);
+        }
+
+        h2 {
+            color: var(--navy);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: var(--ocean-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--ocean-blue-hover);
+        }
+
+        .logout-btn {
+            background: #666;
+        }
+
+        .logout-btn:hover {
+            background: #444;
+        }
+
+        /* Messages */
+        .message {
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #c62828;
+        }
+
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
+        }
+
+        /* User info */
+        #userInfo {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #userInfo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid var(--navy);
+        }
+
+        #userInfo strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--navy);
+            font-size: 18px;
+        }
+
+        #userInfo small {
+            color: #666;
+        }
+
+        /* Back link */
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link a:hover {
+            color: var(--ocean-blue);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Sign in to TraSR</h2>
+        
+        <div id="message"></div>
+        
+        <div id="loginSection">
+            <button onclick="signInWithGoogle()">
+                <span>🔐</span> Sign in with Google
+            </button>
+        </div>
+        
+        <div id="loggedInSection" style="display: none;">
+            <div id="userInfo"></div>
+            <button class="logout-btn" onclick="logout()">Sign Out</button>
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">← Back to home</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIEjRVukE9eKXYp1-ApnbW8S0IELzFzKw",
+            authDomain: "auth.trasr.app",
+            projectId: "trasr-app",
+            storageBucket: "trasr-app.firebasestorage.app",
+            messagingSenderId: "859295560754",
+            appId: "1:859295560754:web:6cff88f8f4fb079055f82b",
+            measurementId: "G-59BZG2L7NL"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Sign in with Google
+        window.signInWithGoogle = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                showMessage('Signed in successfully!', 'success');
+            } catch (error) {
+                showMessage(error.message, 'error');
+            }
+        };
+
+        // Sign out
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                showMessage('Signed out successfully!', 'success');
+            } catch (error) {
+                showMessage(error.message, 'error');
+            }
+        };
+
+        // Check authentication state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('loggedInSection').style.display = 'block';
+                
+                document.getElementById('userInfo').innerHTML = `
+                    <img src="${user.photoURL}" alt="Profile">
+                    <strong>${user.displayName}</strong>
+                    <small>${user.email}</small>
+                `;
+            } else {
+                // User is signed out
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('loggedInSection').style.display = 'none';
+            }
+        });
+
+        function showMessage(msg, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = msg;
+            messageDiv.className = 'message ' + type;
+            setTimeout(() => messageDiv.className = '', 3000);
+        }
+    </script>
+</body>
+</html>

@@ -5,12 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TraSR</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="design-system.css">
   <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     /* Video background */
     body, html {
+      height: 100%;
+      font-family: var(--font-primary);
       overflow: hidden;
     }
+
     .video-background {
       position: fixed;
       top: 0;
@@ -18,8 +28,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1;
+      z-index: var(--z-negative);
     }
+
     /* Overlay container */
     .overlay {
       position: relative;
@@ -30,32 +41,84 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
+      padding: var(--space-4);
     }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.5em;
+
+    /* Semi-transparent content container */
+    .content-container {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      padding: var(--space-12);
+      box-shadow: var(--shadow-xl);
+      border: 2px solid var(--color-primary-800);
+      max-width: 800px;
+      /* Fade-in animation */
+      opacity: 0;
+      animation: fadeIn 1.5s ease-in-out forwards;
     }
-    p {
-      font-size: 1.25em;
-      margin-bottom: 1em;
-    }
-    .contact {
-      margin-top: 1em;
-      font-size: 1em;
-    }
-    .copyright {
-      margin-top: 2em;
-      font-size: 0.9em;
-      color: #0b1d4a;
-    }
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2em;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
-      p {
-        font-size: 1em;
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: var(--font-size-6xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary-800);
+      margin-bottom: var(--space-6);
+      line-height: var(--line-height-tight);
+    }
+
+    .tagline {
+      font-size: var(--font-size-xl);
+      line-height: var(--line-height-relaxed);
+      color: var(--color-primary-700);
+      margin-bottom: var(--space-6);
+    }
+
+    .contact {
+      margin-top: var(--space-6);
+      font-size: var(--font-size-base);
+      color: var(--color-primary-800);
+    }
+
+    .contact a {
+      color: var(--color-accent-500);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      transition: color var(--transition-base);
+    }
+
+    .contact a:hover {
+      color: var(--color-accent-600);
+      text-decoration: underline;
+    }
+
+    .copyright {
+      margin-top: var(--space-8);
+      font-size: var(--font-size-sm);
+      color: var(--color-neutral-600);
+    }
+
+    @media (max-width: 768px) {
+      .content-container {
+        padding: var(--space-8);
+      }
+
+      h1 {
+        font-size: var(--font-size-4xl);
+      }
+
+      .tagline {
+        font-size: var(--font-size-lg);
       }
     }
   </style>
@@ -79,10 +142,12 @@
 
   <!-- Overlay content -->
   <div class="overlay">
-    <h1>TraSR</h1>
-    <p>Transparent, rigorous living evidence workflows – made easy.<br>Coming soon.</p>
-    <div class="contact">Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></div>
-    <div class="copyright">© 2026 TraSR</div>
+    <div class="content-container">
+      <h1>TraSR</h1>
+      <p class="tagline">Transparent, rigorous living evidence workflows – made easy.<br>Coming soon.</p>
+      <div class="contact">Contact: <a href="mailto:hello@trasr.app">hello@trasr.app</a></div>
+      <div class="copyright">© 2026 TraSR</div>
+    </div>
   </div>
 
   <script>
